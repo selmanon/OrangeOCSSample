@@ -1,19 +1,22 @@
 package com.test.orangeocssample.ui.searchschedules
 
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.jakewharton.rxbinding2.widget.textChanges
 import com.test.orangeocssample.data.DefaultOcsRepository
 import com.test.orangeocssample.data.ScheduleMapper
 import com.test.orangeocssample.data.SearchScheduleInteractor
 import com.test.orangeocssample.data.api.OcsService
 import com.test.orangeocssample.databinding.ActivityMainBinding
 import io.reactivex.disposables.CompositeDisposable
+import java.net.UnknownHostException
+import java.util.concurrent.TimeUnit
 
 class SearchSchedulesActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -45,15 +48,32 @@ class SearchSchedulesActivity : AppCompatActivity() {
         initAdapter()
         initScrollListener()
 
-        binding.searchSchedulesEditText.doOnTextChanged { text, start, before, count ->
-            search(text.toString())
-        }
+        binding.searchSchedulesEditText.textChanges()
+            .skip(1)
+            .map { it.toString() }
+            .doOnNext {
+                binding.progressBar.visibility = View.VISIBLE
+                binding.list.visibility = View.GONE
+            }
+            .debounce(800, TimeUnit.MILLISECONDS)
+            .map {
+                search(it)
+            }
+            .doOnEach {
+                binding.progressBar.visibility = View.GONE
+                binding.list.visibility = View.VISIBLE
+            }
+            .retry()
+            .subscribe()
+
 
 
         searchSchedulesViewModel.searchState.observe(this, {
             when (it) {
                 is SearchSchedulesViewModel.UiState.Error -> {
-                    Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
+                    if (it.throwable is UnknownHostException) {
+                        Toast.makeText(this, it.throwable.message, Toast.LENGTH_SHORT).show()
+                    }
                 }
 
                 is SearchSchedulesViewModel.UiState.Success -> {
@@ -73,14 +93,19 @@ class SearchSchedulesActivity : AppCompatActivity() {
     }
 
     private fun search(query: String) {
-        schedulesAdapter.submitList(null)
+        schedulesAdapter.submitList(emptyList())
         offset = 0
+
         compositeDisposable.add(
             searchSchedulesViewModel
                 .searchSchedules(query, DEFAULT_INITIAL_OFFSET)
         )
     }
 
+    override fun onStop() {
+        compositeDisposable.dispose()
+        super.onStop()
+    }
 
     private fun initScrollListener() {
         binding.list.addOnScrollListener(object : RecyclerView.OnScrollListener() {

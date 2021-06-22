@@ -63,4 +63,9 @@ dependencies {
 
     implementation group: 'io.reactivex.rxjava2', name: 'rxjava', version: '2.2.19'
     implementation group: 'io.reactivex.rxjava2', name: 'rxandroid', version: '2.1.1'
+
+    // RxBindig
+    implementation "com.jakewharton.rxbinding2:rxbinding:2.2.0"
+    implementation "com.jakewharton.rxbinding2:rxbinding-kotlin:2.0.0"
+
 }

@@ -36,11 +36,11 @@ class SearchSchedulesViewModel(
             .subscribe({
                 _searchUiState.postValue(UiState.Success(it))
             }, {
-                _searchUiState.postValue(UiState.Error(it.message!!))
+                _searchUiState.postValue(UiState.Error(it))
             })
 
     sealed class UiState {
-        data class Error(val message: String) : UiState()
+        data class Error(val throwable: Throwable) : UiState()
         data class Success(val t: List<Schedule>) : UiState()
     }
 }
