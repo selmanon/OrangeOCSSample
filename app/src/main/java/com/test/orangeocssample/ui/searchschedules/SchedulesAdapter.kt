@@ -1,16 +1,14 @@
 package com.test.orangeocssample.ui.searchschedules
 
-import android.util.Log
 import android.view.ViewGroup
-import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import com.test.orangeocssample.data.api.Result
+import androidx.recyclerview.widget.ListAdapter
 import com.test.orangeocssample.domaine.Schedule
 
 /**
  * Adapter for our list of schedules
  */
-class SchedulesAdapter : PagingDataAdapter<Schedule, ScheduleViewHolder>(SCHEDULE_COMPARATOR) {
+class SchedulesAdapter : ListAdapter<Schedule, ScheduleViewHolder>(SCHEDULE_COMPARATOR) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ScheduleViewHolder {
         return ScheduleViewHolder.create(parent)

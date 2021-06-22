@@ -1,9 +1,11 @@
 package com.test.orangeocssample.data.api
 
+import io.reactivex.Single
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import okhttp3.logging.HttpLoggingInterceptor.Level
 import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -25,11 +27,11 @@ interface OcsService {
      * @param limit the max schedule items to return.
      */
     @GET("apps/v2/contents")
-    suspend fun searchSchedules(
+    fun searchSchedules(
         @Query("search") title: String,
         @Query("offset") offset: Int,
-        @Query("limit") limit: Int
-    ): ScheduleSearchResponse<ScheduleResponse>
+        @Query("limit") limit: Int = 30
+    ): Single<ScheduleSearchResponse<ScheduleResponse>>
 
     companion object {
         private const val BASE_URL = "https://api.ocs.fr"
@@ -45,6 +47,7 @@ interface OcsService {
             return Retrofit.Builder().baseUrl(BASE_URL)
                 .client(client)
                 .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build()
                 .create(OcsService::class.java)
         }

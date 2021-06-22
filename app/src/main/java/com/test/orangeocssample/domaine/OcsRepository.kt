@@ -1,9 +1,7 @@
 package com.test.orangeocssample.domaine
 
-import androidx.paging.PagingData
-import com.test.orangeocssample.data.api.Result
-import kotlinx.coroutines.flow.Flow
+import io.reactivex.Single
 
 interface OcsRepository {
-    fun getSchedulesStreamBy(title: String): Flow<PagingData<Schedule>>
+    fun getSchedulesStreamBy(title: String, offset: Int): Single<Schedule>
 }
