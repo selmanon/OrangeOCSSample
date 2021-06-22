@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Orange OCS Sample</string>
+    <string name="title_label_search_list_item">Title</string>
+    <string name="schedule_place_holder">schedule place holder</string>
+    <string name="textView_title_hint">Game of thrones</string>
+    <string name="unkown">Unkown</string>
+    <string name="search_hint">Schedule?</string>
+</resources>
