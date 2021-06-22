@@ -3,8 +3,22 @@ package com.test.orangeocssample.ui.searchschedules
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import com.test.orangeocssample.data.ScheduleMapper
 import com.test.orangeocssample.data.SearchScheduleInteractor
 import com.test.orangeocssample.domaine.Schedule
+
+@Suppress("UNCHECKED_CAST")
+class SearchSchedulesViewModelFactory(
+    private val searchScheduleInteractor: SearchScheduleInteractor,
+    private val scheduler: SchedulerWrapper
+) :
+    ViewModelProvider.NewInstanceFactory() {
+    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+        return (SearchSchedulesViewModel(searchScheduleInteractor, scheduler) as T)
+    }
+}
+
 
 class SearchSchedulesViewModel(
     private val searchScheduleInteractor: SearchScheduleInteractor,

@@ -8,6 +8,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.test.orangeocssample.data.DefaultOcsRepository
+import com.test.orangeocssample.data.ScheduleMapper
+import com.test.orangeocssample.data.SearchScheduleInteractor
+import com.test.orangeocssample.data.api.OcsService
 import com.test.orangeocssample.databinding.ActivityMainBinding
 import io.reactivex.disposables.CompositeDisposable
 
@@ -26,7 +30,17 @@ class SearchSchedulesActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         // create our view model
-        searchSchedulesViewModel = ViewModelProvider(this).get(SearchSchedulesViewModel::class.java)
+        val searchSchedulesViewModelFactory = SearchSchedulesViewModelFactory(
+            SearchScheduleInteractor(
+                createSearchRepository()
+            ), DefaultScheduler()
+        )
+
+        searchSchedulesViewModel =
+            ViewModelProvider(
+                this,
+                searchSchedulesViewModelFactory
+            ).get(SearchSchedulesViewModel::class.java)
 
         initAdapter()
         initScrollListener()
@@ -48,6 +62,10 @@ class SearchSchedulesActivity : AppCompatActivity() {
             }
         })
     }
+
+    private fun createSearchRepository() = DefaultOcsRepository(
+        OcsService.create(), ScheduleMapper()
+    )
 
     private fun initAdapter() {
         binding.list.layoutManager = GridLayoutManager(this, 2)

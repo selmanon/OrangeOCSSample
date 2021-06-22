@@ -29,8 +29,7 @@ class SearchSchedulesViewModelTest {
     private lateinit var observer: Observer<SearchSchedulesViewModel.UiState>
 
     @Mock
-    private var searchInteractor: SearchScheduleInteractor =
-        mock(SearchScheduleInteractor::class.java)
+    private lateinit var searchInteractor: SearchScheduleInteractor
 
     @Captor
     lateinit var captor: ArgumentCaptor<SearchSchedulesViewModel.UiState>
@@ -56,6 +55,7 @@ class SearchSchedulesViewModelTest {
 
     @Test
     fun `search success`() {
+        // Arrange
         `when`(searchInteractor.getSchedule("", 1)).thenReturn(Single.just(scheduls))
 
 
@@ -82,6 +82,7 @@ class SearchSchedulesViewModelTest {
 
     @Test
     fun `search fail`() {
+        // Arrange
         `when`(searchInteractor.getSchedule("", 1)).thenReturn(Single.error(Throwable("")))
 
 
