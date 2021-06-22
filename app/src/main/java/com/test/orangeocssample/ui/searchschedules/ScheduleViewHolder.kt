@@ -5,10 +5,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.os.bundleOf
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.test.orangeocssample.R
-import com.test.orangeocssample.databinding.ScheduleViewItemBinding
 import com.test.orangeocssample.domaine.Schedule
 
 /**
@@ -23,6 +24,16 @@ class ScheduleViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
     init {
         view.setOnClickListener {
+            val bundle = bundleOf(
+                "title" to mSchedule?.title,
+                "subtitle" to mSchedule?.subtitle,
+                "pitch" to mSchedule?.id,
+                "imageurl" to mSchedule?.imageUrl
+            )
+            view.findNavController().navigate(
+                R.id.action_searchSchedulesListFragment_to_scheduleDetailsFragment,
+                bundle
+            )
         }
     }
 

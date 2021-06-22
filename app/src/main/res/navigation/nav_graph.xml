@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/searchSchedulesListFragment">
+
+    <fragment
+        android:id="@+id/searchSchedulesListFragment"
+        android:name="com.test.orangeocssample.ui.searchschedules.SearchSchedulesListFragment"
+        android:label="fragment_list_schedule"
+        tools:layout="@layout/fragment_list_schedule" >
+        <action
+            android:id="@+id/action_searchSchedulesListFragment_to_scheduleDetailsFragment"
+            app:destination="@id/scheduleDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/scheduleDetailsFragment"
+        android:name="com.test.orangeocssample.ui.detailschedule.ScheduleDetailsFragment"
+        android:label="fragment_schedule_details"
+        tools:layout="@layout/fragment_schedule_details" />
+</navigation>
