@@ -1,12 +1,13 @@
 package com.test.orangeocssample.ui.searchschedules
 
 import android.os.Bundle
-import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doOnTextChanged
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.test.orangeocssample.databinding.ActivityMainBinding
 import io.reactivex.disposables.CompositeDisposable
 
@@ -17,6 +18,8 @@ class SearchSchedulesActivity : AppCompatActivity() {
 
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
+    private var offset = PAGE_LENGTH
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -26,23 +29,21 @@ class SearchSchedulesActivity : AppCompatActivity() {
         searchSchedulesViewModel = ViewModelProvider(this).get(SearchSchedulesViewModel::class.java)
 
         initAdapter()
+        initScrollListener()
 
         binding.searchSchedulesEditText.doOnTextChanged { text, start, before, count ->
             search(text.toString())
         }
 
-        searchSchedulesViewModel.searchState.observe(this, Observer {
+
+        searchSchedulesViewModel.searchState.observe(this, {
             when (it) {
-                is SearchSchedulesViewModel.LceState.Loading -> {
-                    binding.progressBar.visibility = View.VISIBLE
+                is SearchSchedulesViewModel.UiState.Error -> {
+                    Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
                 }
 
-                is SearchSchedulesViewModel.LceState.Error -> {
-                    binding.retryButton.visibility = View.VISIBLE
-                }
-
-                is SearchSchedulesViewModel.LceState.Content -> {
-                    schedulesAdapter.submitList(listOf(it.t))
+                is SearchSchedulesViewModel.UiState.Success -> {
+                    schedulesAdapter.submitList(schedulesAdapter.currentList + it.t)
                 }
             }
         })
@@ -54,14 +55,39 @@ class SearchSchedulesActivity : AppCompatActivity() {
     }
 
     private fun search(query: String) {
+        schedulesAdapter.submitList(null)
+        offset = 0
         compositeDisposable.add(
             searchSchedulesViewModel
                 .searchSchedules(query, DEFAULT_INITIAL_OFFSET)
         )
     }
 
+
+    private fun initScrollListener() {
+        binding.list.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                val layoutManager = binding.list.layoutManager as LinearLayoutManager
+                if (layoutManager.findLastCompletelyVisibleItemPosition() == schedulesAdapter.itemCount - 1) {
+                    loadMore()
+                }
+            }
+        })
+    }
+
+
+    fun loadMore() {
+        offset += PAGE_LENGTH
+        searchSchedulesViewModel.searchSchedules(
+            binding.searchSchedulesEditText.text.toString(),
+            offset
+        )
+    }
+
     companion object {
         const val DEFAULT_INITIAL_OFFSET = 1
+        const val PAGE_LENGTH = 30
     }
 }
 

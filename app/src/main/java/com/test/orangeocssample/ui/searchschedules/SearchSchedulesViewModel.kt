@@ -3,42 +3,30 @@ package com.test.orangeocssample.ui.searchschedules
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.test.orangeocssample.data.DefaultOcsRepository
-import com.test.orangeocssample.data.ScheduleMapper
-import com.test.orangeocssample.data.api.OcsService
-import com.test.orangeocssample.domaine.OcsRepository
+import com.test.orangeocssample.data.SearchScheduleInteractor
 import com.test.orangeocssample.domaine.Schedule
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 
-class SearchSchedulesViewModel() : ViewModel() {
+class SearchSchedulesViewModel(
+    private val searchScheduleInteractor: SearchScheduleInteractor,
+    private val scheduler: SchedulerWrapper
+) : ViewModel() {
 
-    private val _searchLceState: MutableLiveData<LceState> =
+    private val _searchUiState: MutableLiveData<UiState> =
         MutableLiveData()
-    val searchState: LiveData<LceState> get() = _searchLceState
-
-
-    private val ocsRepository: OcsRepository = DefaultOcsRepository(
-        OcsService.create(),
-        ScheduleMapper()
-    )
-
+    val searchState: LiveData<UiState> get() = _searchUiState
 
     fun searchSchedules(titleQuery: String, offset: Int) =
-        ocsRepository.getSchedulesStreamBy(titleQuery, offset)
-            .doOnSubscribe {
-                _searchLceState.postValue(LceState.Loading)
-            }.subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
+        searchScheduleInteractor.getSchedule(titleQuery, offset)
+            .subscribeOn(scheduler.io())
+            .observeOn(scheduler.main())
             .subscribe({
-                _searchLceState.postValue(LceState.Content(it))
+                _searchUiState.postValue(UiState.Success(it))
             }, {
-                _searchLceState.postValue(LceState.Error)
+                _searchUiState.postValue(UiState.Error(it.message!!))
             })
 
-    sealed class LceState {
-        object Loading : LceState()
-        object Error : LceState()
-        data class Content(val t: Schedule) : LceState()
+    sealed class UiState {
+        data class Error(val message: String) : UiState()
+        data class Success(val t: List<Schedule>) : UiState()
     }
 }
