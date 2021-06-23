@@ -11,9 +11,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.test.orangeocssample.data.DefaultOcsRepository
-import com.test.orangeocssample.data.ScheduleMapper
-import com.test.orangeocssample.data.SearchScheduleInteractor
+import com.test.orangeocssample.data.repository.DefaultSearchScheduleRepository
+import com.test.orangeocssample.data.mapper.ScheduleMapper
+import com.test.orangeocssample.data.interactor.SearchScheduleInteractor
 import com.test.orangeocssample.data.api.OcsService
 import com.test.orangeocssample.databinding.FragmentListScheduleBinding
 import io.reactivex.disposables.CompositeDisposable
@@ -86,7 +86,7 @@ class SearchSchedulesListFragment : Fragment() {
         })
     }
 
-    private fun createSearchRepository() = DefaultOcsRepository(
+    private fun createSearchRepository() = DefaultSearchScheduleRepository(
         OcsService.create(), ScheduleMapper()
     )
 

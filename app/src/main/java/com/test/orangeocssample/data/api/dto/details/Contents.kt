@@ -23,5 +23,6 @@ data class Contents(
     val subtitlefocus: Any,
     val summary: String,
     val title: List<TitleX>,
-    val zonesinfo: Zonesinfo
+    val zonesinfo: Zonesinfo,
+    val seasons : List<Season>
 )

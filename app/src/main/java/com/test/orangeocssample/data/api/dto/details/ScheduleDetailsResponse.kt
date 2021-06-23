@@ -1,6 +1,6 @@
 package com.test.orangeocssample.data.api.dto.details
 
-data class ScheduleDetails(
+data class ScheduleDetailsResponse(
     val categoryID: Int?,
     val contents: Contents?,
     val parentalrating: Int?,

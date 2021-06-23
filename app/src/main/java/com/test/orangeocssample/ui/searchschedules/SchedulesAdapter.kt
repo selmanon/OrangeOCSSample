@@ -23,7 +23,7 @@ class SchedulesAdapter : ListAdapter<Schedule, ScheduleViewHolder>(SCHEDULE_COMP
                     scheduleContentItem.title,
                     scheduleContentItem.subtitle,
                     scheduleContentItem.imageUrl,
-                    scheduleContentItem.pitch
+                    scheduleContentItem.detaillink
                 )
             )
         }

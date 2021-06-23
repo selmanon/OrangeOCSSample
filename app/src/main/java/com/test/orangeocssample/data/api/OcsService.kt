@@ -1,6 +1,6 @@
 package com.test.orangeocssample.data.api
 
-import com.test.orangeocssample.data.api.dto.details.ScheduleDetails
+import com.test.orangeocssample.data.api.dto.details.ScheduleDetailsResponse
 import com.test.orangeocssample.data.api.dto.search.ScheduleResponse
 import com.test.orangeocssample.data.api.dto.search.ScheduleSearchResponse
 import io.reactivex.Single
@@ -38,14 +38,14 @@ interface OcsService {
     ): Single<ScheduleSearchResponse<ScheduleResponse>>
 
     /**
-     * @return A [ScheduleDetails] for a specific serie or programme.
+     * @return A [ScheduleDetailsResponse] for a specific serie or programme.
      *
      * @param detaillink the detail link of the schedule.
      */
     @GET("{detaillink}")
     fun scheduleDetails(
         @Path("detaillink", encoded = true) detaillink: String?
-    ): Single<ScheduleDetails>
+    ): Single<ScheduleDetailsResponse>
 
 
     companion object {

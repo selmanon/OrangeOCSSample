@@ -5,8 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.test.orangeocssample.data.ScheduleMapper
-import com.test.orangeocssample.data.SearchScheduleInteractor
+import com.test.orangeocssample.data.interactor.SearchScheduleInteractor
 import com.test.orangeocssample.domaine.Schedule
 
 @Suppress("UNCHECKED_CAST")

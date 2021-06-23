@@ -27,7 +27,7 @@ class ScheduleViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             val bundle = bundleOf(
                 "title" to mSchedule?.title,
                 "subtitle" to mSchedule?.subtitle,
-                "pitch" to mSchedule?.pitch,
+                "pitch" to mSchedule?.detaillink,
                 "imageurl" to mSchedule?.imageUrl
             )
             view.findNavController().navigate(
