@@ -95,7 +95,7 @@ class SearchSchedulesListFragment : Fragment() {
                 }
 
                 is SearchSchedulesViewModel.UiState.Success -> {
-                    schedulesAdapter.submitList(schedulesAdapter.currentList + it.t)
+                    schedulesAdapter.submitList(ArrayList(schedulesAdapter.currentList + it.t))
                 }
             }
         })
@@ -122,8 +122,8 @@ class SearchSchedulesListFragment : Fragment() {
     }
 
     override fun onDestroy() {
-        super.onDestroy()
         compositeDisposable.dispose()
+        super.onDestroy()
     }
 
     private fun initScrollListener() {
@@ -131,13 +131,19 @@ class SearchSchedulesListFragment : Fragment() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
                 val layoutManager = binding.list.layoutManager as LinearLayoutManager
-                if (layoutManager.findLastCompletelyVisibleItemPosition() == schedulesAdapter.itemCount - 1) {
+                if (isTheLastVisibleItem(layoutManager)) {
                     loadMore()
                 }
             }
         })
     }
 
+    /**
+     * Check that we reached the last item on our list and it's not the loading state
+     * which could be checked just by checking that findLastCompletelyVisibleItemPosition != -1
+     */
+    private fun isTheLastVisibleItem(layoutManager: LinearLayoutManager) =
+        (layoutManager.findLastCompletelyVisibleItemPosition() == schedulesAdapter.itemCount - 1 && layoutManager.findLastCompletelyVisibleItemPosition() != (-1))
 
     fun loadMore() {
         offset += PAGE_LENGTH
