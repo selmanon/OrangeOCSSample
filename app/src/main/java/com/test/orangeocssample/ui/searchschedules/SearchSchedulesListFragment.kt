@@ -121,9 +121,9 @@ class SearchSchedulesListFragment : Fragment() {
         )
     }
 
-    override fun onStop() {
+    override fun onDestroy() {
+        super.onDestroy()
         compositeDisposable.dispose()
-        super.onStop()
     }
 
     private fun initScrollListener() {
