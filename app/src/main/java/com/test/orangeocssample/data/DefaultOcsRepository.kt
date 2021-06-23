@@ -12,7 +12,7 @@ class DefaultOcsRepository(private val ocsService: OcsService, private val mappe
     override fun getSchedulesStreamBy(title: String, offset: Int): Single<List<Schedule>> {
         return ocsService.searchSchedules(TITLE_QUALIFIER + title, offset)
             .flatMap { (schedule) ->
-                ocsService.scheduleDetails(schedule!![0].detaillink ?: "").map {
+                ocsService.scheduleDetails(schedule?.get(0)?.detaillink ?: "").map {
                     mapper.mapToDomain(schedule, scheduleDetails = it)
                 }
             }

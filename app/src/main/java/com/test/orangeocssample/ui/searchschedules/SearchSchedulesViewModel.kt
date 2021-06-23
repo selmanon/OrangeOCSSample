@@ -1,5 +1,6 @@
 package com.test.orangeocssample.ui.searchschedules
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -34,8 +35,10 @@ class SearchSchedulesViewModel(
             .subscribeOn(scheduler.io())
             .observeOn(scheduler.main())
             .subscribe({
+                Log.e("debug", it.size.toString())
                 _searchUiState.postValue(UiState.Success(it))
             }, {
+                Log.e("debug", it.toString())
                 _searchUiState.postValue(UiState.Error(it))
             })
 

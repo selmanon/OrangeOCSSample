@@ -18,7 +18,7 @@ class ScheduleMapper {
                     title = it.title!![0].value ?: "",
                     subtitle = it.subtitle ?: "",
                     imageUrl = it.imageurl ?: "",
-                    pitch = scheduleDetails.contents.pitch
+                    pitch = scheduleDetails.contents?.pitch?:""
                 )
             )
         }

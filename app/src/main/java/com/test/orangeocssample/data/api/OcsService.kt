@@ -44,7 +44,7 @@ interface OcsService {
      */
     @GET("{detaillink}")
     fun scheduleDetails(
-        @Path("detaillink", encoded = true) detaillink: String
+        @Path("detaillink", encoded = true) detaillink: String?
     ): Single<ScheduleDetails>
 
 
