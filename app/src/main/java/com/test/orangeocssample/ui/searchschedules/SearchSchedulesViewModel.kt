@@ -36,10 +36,10 @@ class SearchSchedulesViewModel(
             .observeOn(scheduler.main())
             .subscribe({
                 Log.e("debug", it.size.toString())
-                _searchUiState.postValue(UiState.Success(it))
+                _searchUiState.value = UiState.Success(it)
             }, {
                 Log.e("debug", it.toString())
-                _searchUiState.postValue(UiState.Error(it))
+                _searchUiState.value = UiState.Error(it)
             })
 
     sealed class UiState {
