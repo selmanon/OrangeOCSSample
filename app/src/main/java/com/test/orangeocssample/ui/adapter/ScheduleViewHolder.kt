@@ -1,4 +1,4 @@
-package com.test.orangeocssample.ui.searchschedules
+package com.test.orangeocssample.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.View

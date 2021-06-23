@@ -1,4 +1,4 @@
-package com.test.orangeocssample.ui.searchschedules
+package com.test.orangeocssample.ui.adapter
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil

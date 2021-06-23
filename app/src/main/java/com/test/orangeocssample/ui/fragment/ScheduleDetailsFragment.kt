@@ -1,4 +1,4 @@
-package com.test.orangeocssample.ui.detailschedule
+package com.test.orangeocssample.ui.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -16,7 +16,7 @@ import com.test.orangeocssample.databinding.FragmentScheduleDetailsBinding
 import com.test.orangeocssample.ui.searchschedules.DefaultScheduler
 import com.test.orangeocssample.ui.searchschedules.ScheduleDetailsViewModel
 import com.test.orangeocssample.ui.searchschedules.ScheduleDetailsViewModelFactory
-import com.test.orangeocssample.ui.searchschedules.ScheduleViewHolder
+import com.test.orangeocssample.ui.adapter.ScheduleViewHolder
 import java.net.UnknownHostException
 
 // TODO: Rename parameter arguments, choose names that match

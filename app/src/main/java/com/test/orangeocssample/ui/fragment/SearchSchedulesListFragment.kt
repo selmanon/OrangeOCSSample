@@ -1,4 +1,4 @@
-package com.test.orangeocssample.ui.searchschedules
+package com.test.orangeocssample.ui.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -16,6 +16,9 @@ import com.test.orangeocssample.data.mapper.ScheduleMapper
 import com.test.orangeocssample.data.interactor.SearchScheduleInteractor
 import com.test.orangeocssample.data.api.OcsService
 import com.test.orangeocssample.databinding.FragmentListScheduleBinding
+import com.test.orangeocssample.ui.adapter.GridSpacingItemDecoration
+import com.test.orangeocssample.ui.adapter.SchedulesAdapter
+import com.test.orangeocssample.ui.searchschedules.*
 import io.reactivex.disposables.CompositeDisposable
 import java.net.UnknownHostException
 

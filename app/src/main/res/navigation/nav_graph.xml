@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/searchSchedulesListFragment"
-        android:name="com.test.orangeocssample.ui.searchschedules.SearchSchedulesListFragment"
+        android:name="com.test.orangeocssample.ui.fragment.SearchSchedulesListFragment"
         android:label="fragment_list_schedule"
         tools:layout="@layout/fragment_list_schedule" >
         <action
