@@ -5,5 +5,6 @@ data class Schedule(
     val title: String,
     val subtitle: String,
     val imageUrl: String,
-    val detaillink: String
+    val detailLink: String,
+    val fullImageUrl: String
 )

@@ -24,7 +24,7 @@ import java.net.UnknownHostException
 private const val ARG_TITLE = "title"
 private const val ARG_SUBTITLE = "subtitle"
 private const val ARG_PITCH = "pitch"
-private const val ARG_IMAGE_URL = "imageurl"
+private const val ARG_IMAGE_URL = "fullimageurl"
 
 /**
  * A simple [Fragment] subclass.
@@ -38,7 +38,7 @@ class ScheduleDetailsFragment : Fragment() {
     private var title: String? = null
     private var subtitle: String? = null
     private var pitch: String = ""
-    private var imageUrl: String? = null
+    private var fullImageUrl: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,7 +46,7 @@ class ScheduleDetailsFragment : Fragment() {
             title = it.getString(ARG_TITLE)
             subtitle = it.getString(ARG_SUBTITLE)
             pitch = it.getString(ARG_PITCH) ?: ""
-            imageUrl = it.getString(ARG_IMAGE_URL)
+            fullImageUrl = it.getString(ARG_IMAGE_URL)
         }
     }
 
@@ -69,7 +69,7 @@ class ScheduleDetailsFragment : Fragment() {
         binding.itemScheduleDetailsSubTitle.text = subtitle
         Glide
             .with(binding.imageViewSchedule.context)
-            .load(ScheduleViewHolder.IMAGE_BASE_URL + imageUrl)
+            .load(ScheduleViewHolder.IMAGE_BASE_URL + fullImageUrl)
             //.placeholder() TODO
             .into(binding.imageViewSchedule)
 

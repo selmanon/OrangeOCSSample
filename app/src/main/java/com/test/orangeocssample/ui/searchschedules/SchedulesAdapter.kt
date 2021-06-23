@@ -19,11 +19,12 @@ class SchedulesAdapter : ListAdapter<Schedule, ScheduleViewHolder>(SCHEDULE_COMP
         if (scheduleContentItem != null) {
             holder.bind(
                 Schedule(
-                    scheduleContentItem.id,
-                    scheduleContentItem.title,
-                    scheduleContentItem.subtitle,
-                    scheduleContentItem.imageUrl,
-                    scheduleContentItem.detaillink
+                    id = scheduleContentItem.id,
+                    title = scheduleContentItem.title,
+                    subtitle = scheduleContentItem.subtitle,
+                    imageUrl = scheduleContentItem.imageUrl,
+                    fullImageUrl = scheduleContentItem.fullImageUrl,
+                    detailLink = scheduleContentItem.detailLink
                 )
             )
         }

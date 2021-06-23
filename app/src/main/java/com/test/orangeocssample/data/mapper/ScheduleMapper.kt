@@ -16,7 +16,8 @@ class ScheduleMapper {
                     title = it.title!![0].value ?: "",
                     subtitle = it.subtitle ?: "",
                     imageUrl = it.imageurl ?: "",
-                    detaillink = it.detaillink ?: ""
+                    fullImageUrl = it.fullscreenimageurl?:"",
+                    detailLink = it.detaillink ?: "",
                 )
             )
         }
