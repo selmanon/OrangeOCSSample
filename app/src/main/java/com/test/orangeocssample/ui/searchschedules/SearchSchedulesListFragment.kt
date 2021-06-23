@@ -5,12 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.jakewharton.rxbinding2.widget.textChanges
 import com.test.orangeocssample.data.DefaultOcsRepository
 import com.test.orangeocssample.data.ScheduleMapper
 import com.test.orangeocssample.data.SearchScheduleInteractor
@@ -18,7 +18,6 @@ import com.test.orangeocssample.data.api.OcsService
 import com.test.orangeocssample.databinding.FragmentListScheduleBinding
 import io.reactivex.disposables.CompositeDisposable
 import java.net.UnknownHostException
-import java.util.concurrent.TimeUnit
 
 class SearchSchedulesListFragment : Fragment() {
     private lateinit var binding: FragmentListScheduleBinding
@@ -65,23 +64,9 @@ class SearchSchedulesListFragment : Fragment() {
     }
 
     private fun setUpSearchEditText() {
-        binding.searchSchedulesEditText.textChanges()
-            .skip(1)
-            .map { it.toString() }
-            .doOnNext {
-                binding.progressBar.visibility = View.VISIBLE
-                binding.list.visibility = View.GONE
-            }
-            .debounce(800, TimeUnit.MILLISECONDS)
-            .map {
-                search(it)
-            }
-            .doOnEach {
-                binding.progressBar.visibility = View.GONE
-                binding.list.visibility = View.VISIBLE
-            }
-            .retry()
-            .subscribe()
+        binding
+            .searchSchedulesEditText
+            .doOnTextChanged { text, start, before, count -> search(text.toString()) }
     }
 
     private fun observeSearchViewModel() {
