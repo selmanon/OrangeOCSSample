@@ -107,7 +107,7 @@ class SearchSchedulesListFragment : Fragment() {
 
     private fun initAdapter() {
         binding.list.layoutManager = GridLayoutManager(requireContext(), 2)
-        binding.list.addItemDecoration(GridSpacingItemDecoration(2, 20, true))
+        binding.list.addItemDecoration(GridSpacingItemDecoration(2, 10, true))
         binding.list.adapter = schedulesAdapter
     }
 
