@@ -1,5 +1,8 @@
 package com.test.orangeocssample.data.api
 
+import com.test.orangeocssample.data.api.dto.details.ScheduleDetails
+import com.test.orangeocssample.data.api.dto.search.ScheduleResponse
+import com.test.orangeocssample.data.api.dto.search.ScheduleSearchResponse
 import io.reactivex.Single
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -8,6 +11,7 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 
@@ -32,6 +36,17 @@ interface OcsService {
         @Query("offset") offset: Int,
         @Query("limit") limit: Int = 30
     ): Single<ScheduleSearchResponse<ScheduleResponse>>
+
+    /**
+     * @return A [ScheduleDetails] for a specific serie or programme.
+     *
+     * @param detaillink the detail link of the schedule.
+     */
+    @GET("{detaillink}")
+    fun scheduleDetails(
+        @Path("detaillink", encoded = true) detaillink: String
+    ): Single<ScheduleDetails>
+
 
     companion object {
         private const val BASE_URL = "https://api.ocs.fr"

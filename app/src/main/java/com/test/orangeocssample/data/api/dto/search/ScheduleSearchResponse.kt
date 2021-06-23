@@ -1,4 +1,4 @@
-package com.test.orangeocssample.data.api
+package com.test.orangeocssample.data.api.dto.search
 
 import com.google.gson.annotations.SerializedName
 

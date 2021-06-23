@@ -25,7 +25,7 @@ class SearchSchedulesListFragment : Fragment() {
     private lateinit var searchSchedulesViewModel: SearchSchedulesViewModel
     private val schedulesAdapter = SchedulesAdapter()
 
-    private val compositeDisposable: CompositeDisposable = CompositeDisposable()
+    private val compositeDisposable = CompositeDisposable()
 
     private var offset = PAGE_LENGTH
 
@@ -42,22 +42,29 @@ class SearchSchedulesListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        initViewModel()
+        initAdapter()
+        initScrollListener()
+        setUpSearchEditText()
+
+        observeSearchViewModel()
+    }
+
+    private fun initViewModel() {
         // create our view model
         val searchSchedulesViewModelFactory = SearchSchedulesViewModelFactory(
             SearchScheduleInteractor(
                 createSearchRepository()
             ), DefaultScheduler()
         )
-
         searchSchedulesViewModel =
             ViewModelProvider(
                 this,
                 searchSchedulesViewModelFactory
             ).get(SearchSchedulesViewModel::class.java)
+    }
 
-        initAdapter()
-        initScrollListener()
-
+    private fun setUpSearchEditText() {
         binding.searchSchedulesEditText.textChanges()
             .skip(1)
             .map { it.toString() }
@@ -75,9 +82,9 @@ class SearchSchedulesListFragment : Fragment() {
             }
             .retry()
             .subscribe()
+    }
 
-
-
+    private fun observeSearchViewModel() {
         searchSchedulesViewModel.searchState.observe(requireActivity(), {
             when (it) {
                 is SearchSchedulesViewModel.UiState.Error -> {
@@ -104,7 +111,7 @@ class SearchSchedulesListFragment : Fragment() {
     }
 
     private fun search(query: String) {
-        schedulesAdapter.submitList(emptyList())
+        schedulesAdapter.submitList(null)
         offset = 0
 
         compositeDisposable.add(

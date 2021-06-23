@@ -1,4 +1,4 @@
-package com.test.orangeocssample.data.api
+package com.test.orangeocssample.data.api.dto.search
 
 /*
  void addAll(Collection<? extends E> items);

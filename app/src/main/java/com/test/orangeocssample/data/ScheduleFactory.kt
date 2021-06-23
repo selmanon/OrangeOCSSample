@@ -1,7 +1,7 @@
 package com.test.orangeocssample.data
 
-import com.test.orangeocssample.data.api.ScheduleResponse
-import com.test.orangeocssample.data.api.Title
+import com.test.orangeocssample.data.api.dto.search.ScheduleResponse
+import com.test.orangeocssample.data.api.dto.search.Title
 
 class ScheduleFactory {
 

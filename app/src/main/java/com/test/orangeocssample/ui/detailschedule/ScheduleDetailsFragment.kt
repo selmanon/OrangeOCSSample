@@ -50,8 +50,8 @@ class ScheduleDetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.textViewTitle.text = title
-        binding.textViewSubTitle.text = subtitle
+        binding.itemScheduleDetailsTitle.text = title
+        binding.itemScheduleDetailsSubTitle.text = subtitle
         binding.textViewPitch.text = pitch
         Glide
             .with(binding.imageViewSchedule.context)
