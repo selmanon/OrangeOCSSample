@@ -9,14 +9,14 @@
         android:id="@+id/searchSchedulesListFragment"
         android:name="com.test.orangeocssample.ui.fragment.SearchSchedulesListFragment"
         android:label="fragment_list_schedule"
-        tools:layout="@layout/fragment_list_schedule" >
+        tools:layout="@layout/fragment_list_schedule">
         <action
             android:id="@+id/action_searchSchedulesListFragment_to_scheduleDetailsFragment"
             app:destination="@id/scheduleDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/scheduleDetailsFragment"
-        android:name="com.test.orangeocssample.ui.detailschedule.ScheduleDetailsFragment"
+        android:name="com.test.orangeocssample.ui.fragment.ScheduleDetailsFragment"
         android:label="fragment_schedule_details"
         tools:layout="@layout/fragment_schedule_details" />
 </navigation>
