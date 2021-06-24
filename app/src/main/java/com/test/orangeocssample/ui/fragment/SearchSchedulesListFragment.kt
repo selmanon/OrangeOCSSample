@@ -19,6 +19,7 @@ import com.test.orangeocssample.databinding.FragmentListScheduleBinding
 import com.test.orangeocssample.ui.adapter.GridSpacingItemDecoration
 import com.test.orangeocssample.ui.adapter.SchedulesAdapter
 import com.test.orangeocssample.ui.searchschedules.*
+import com.test.orangeocssample.utils.rxjava.DefaultScheduler
 import io.reactivex.disposables.CompositeDisposable
 import java.net.UnknownHostException
 

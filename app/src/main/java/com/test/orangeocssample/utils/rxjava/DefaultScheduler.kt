@@ -1,4 +1,4 @@
-package com.test.orangeocssample.ui.searchschedules
+package com.test.orangeocssample.utils.rxjava
 
 import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers

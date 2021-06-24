@@ -13,7 +13,7 @@ import com.test.orangeocssample.data.interactor.ScheduleDetailsInteractor
 import com.test.orangeocssample.data.mapper.ScheduleDetailsMapper
 import com.test.orangeocssample.data.repository.DefaultScheduleDetailsRepository
 import com.test.orangeocssample.databinding.FragmentScheduleDetailsBinding
-import com.test.orangeocssample.ui.searchschedules.DefaultScheduler
+import com.test.orangeocssample.utils.rxjava.DefaultScheduler
 import com.test.orangeocssample.ui.searchschedules.ScheduleDetailsViewModel
 import com.test.orangeocssample.ui.searchschedules.ScheduleDetailsViewModelFactory
 import com.test.orangeocssample.ui.adapter.ScheduleViewHolder

@@ -1,6 +1,6 @@
 package com.test.orangeocssample.ui.searchschedules
 
-import io.reactivex.Scheduler
+import com.test.orangeocssample.utils.rxjava.SchedulerWrapper
 import io.reactivex.schedulers.TestScheduler
 
 class TestSchedulerProvider(private val scheduler: TestScheduler) : SchedulerWrapper {

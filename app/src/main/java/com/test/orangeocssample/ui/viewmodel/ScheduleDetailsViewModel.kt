@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.test.orangeocssample.data.interactor.ScheduleDetailsInteractor
 import com.test.orangeocssample.domaine.ScheduleDetails
+import com.test.orangeocssample.utils.rxjava.SchedulerWrapper
 
 @Suppress("UNCHECKED_CAST")
 class ScheduleDetailsViewModelFactory(
