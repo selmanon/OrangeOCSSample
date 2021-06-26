@@ -1,2 +1,4 @@
 include ':app'
 rootProject.name = "Orange OCS Sample"
+include ':exoplayer-video-lib'
+include ':player-video-lib'

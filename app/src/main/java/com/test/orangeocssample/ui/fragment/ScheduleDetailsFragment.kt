@@ -1,5 +1,6 @@
 package com.test.orangeocssample.ui.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,16 +8,17 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.android.videoplayerlib.PlayerActivity
 import com.bumptech.glide.Glide
 import com.test.orangeocssample.data.api.OcsService
 import com.test.orangeocssample.data.interactor.ScheduleDetailsInteractor
 import com.test.orangeocssample.data.mapper.ScheduleDetailsMapper
 import com.test.orangeocssample.data.repository.DefaultScheduleDetailsRepository
 import com.test.orangeocssample.databinding.FragmentScheduleDetailsBinding
-import com.test.orangeocssample.utils.rxjava.DefaultScheduler
+import com.test.orangeocssample.ui.adapter.ScheduleViewHolder
 import com.test.orangeocssample.ui.searchschedules.ScheduleDetailsViewModel
 import com.test.orangeocssample.ui.searchschedules.ScheduleDetailsViewModelFactory
-import com.test.orangeocssample.ui.adapter.ScheduleViewHolder
+import com.test.orangeocssample.utils.rxjava.DefaultScheduler
 import java.net.UnknownHostException
 
 // TODO: Rename parameter arguments, choose names that match
@@ -26,11 +28,6 @@ private const val ARG_SUBTITLE = "subtitle"
 private const val ARG_PITCH = "pitch"
 private const val ARG_IMAGE_URL = "fullimageurl"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [ScheduleDetailsFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class ScheduleDetailsFragment : Fragment() {
     private lateinit var binding: FragmentScheduleDetailsBinding
     private lateinit var scheduleDetailsViewModel: ScheduleDetailsViewModel
@@ -77,6 +74,10 @@ class ScheduleDetailsFragment : Fragment() {
             scheduleDetailsViewModel.getScheduleDetails(pitch)
         } else {
             binding.itemScheduleDetailsPitch.visibility = View.GONE
+        }
+
+        binding.imageViewPlay.setOnClickListener {
+            startActivity(Intent(requireActivity(), PlayerActivity::class.java))
         }
     }
 
